@@ -1,0 +1,20 @@
+{
+	"added_words":
+	[
+		"dataframe",
+		"timestamp",
+		"mongodb",
+		"",
+		"Todo",
+		"javascript"
+	],
+	"color_scheme": "Packages/User/SublimeLinter/Tomorrow_Night_Bright (SL).tmTheme",
+	"font_face": "fira code retina",
+	"font_size": 10,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"theme": "Seti.sublime-theme",
+	"translate_tabs_to_spaces": true
+}
