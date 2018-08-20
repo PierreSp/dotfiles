@@ -1,0 +1,42 @@
+config:
+  backup: true
+  banner: true
+  create: true
+  dotpath: dotfiles
+  keepdot: false
+  link_by_default: false
+  longkey: false
+dotfiles:
+  d_i3:
+    dst: ~/.i3
+    link: true
+    src: i3
+  d_nvim:
+    dst: ~/.config/nvim
+    link: true
+    src: config/nvim
+  d_scripts:
+    dst: ~/scripts
+    link: true
+    src: scripts
+  f_aliases:
+    dst: ~/.aliases
+    link: true
+    src: aliases
+  f_bashrc:
+    dst: ~/.bashrc
+    link: true
+    src: bashrc
+  f_profile:
+    dst: ~/.profile
+    link: true
+    src: profile
+profiles:
+  pspri:
+    dotfiles:
+    - f_aliases
+    - d_i3
+    - f_bashrc
+    - f_profile
+    - d_scripts
+    - d_nvim
