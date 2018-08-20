@@ -36,17 +36,17 @@ pip install --user --upgrade black
     - Run :PlugInstall withhin neovim
 ## Used tools and programs
 
-- vidir # Vi-based multi file renaming tool (AUR)
-- neovim # Better vim
-- fish # Shell extension (used with oh-my-fish and agnoster theme)
-- tmux # Terminal multiplexer 
+- bat # better cat
 - Dropbox
+- fish # Shell extension (used with oh-my-fish and agnoster theme)
+- kitty # gui based, ssh friendly terminal emulator
+- neovim # Better vim
+- powerline # show more information in terminal
+- redshift # protects your eyes
+- ripgrep # better grep
+- sublime # good coding environment
+- tmux # Terminal multiplexer 
+- vidir # Vi-based multi file renaming tool (AUR)
+- vlc # good video player
 - xcape # redefine keys
 - yay # better yaourt (package manager for AUR)
-- ripgrep # better grep
-- bat # better cat
-- vlc # good video player
-- sublime # good coding environment
-- redshift # protects your eyes
-- powerline # show more information in terminal
-- kitty # gui based, ssh friendly terminal emulator

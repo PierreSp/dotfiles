@@ -19,6 +19,10 @@ dotfiles:
     dst: ~/scripts
     link: true
     src: scripts
+  d_user:
+    dst: ~/.config/sublime-text-3/Packages/User
+    link: true
+    src: config/sublime-text-3/Packages/User
   f_aliases:
     dst: ~/.aliases
     link: true
@@ -27,6 +31,10 @@ dotfiles:
     dst: ~/.bashrc
     link: true
     src: bashrc
+  f_kitty.conf:
+    dst: ~/.config/kitty/kitty.conf
+    link: true
+    src: config/kitty/kitty.conf
   f_profile:
     dst: ~/.profile
     link: true
@@ -40,3 +48,5 @@ profiles:
     - f_profile
     - d_scripts
     - d_nvim
+    - f_kitty.conf
+    - d_user
