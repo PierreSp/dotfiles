@@ -1,6 +1,12 @@
 set spell spelllang=en_us
 set undofile
 set encoding=utf-8
+" Install VPlug if not installed
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
@@ -11,11 +17,14 @@ if has('clipboard')
 endif
 
 set ignorecase
+set nostartofline
 set number
 set conceallevel=1
 set termguicolors
 set background=dark
+set incsearch
 
+" Tab configuarions
 set expandtab
 set autoindent
 set softtabstop=4
@@ -23,10 +32,15 @@ set shiftwidth=2
 set tabstop=4
 
 set history=1000
+set undolevels=1000
+set belloff=all
 
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
+
+" allow to delete with ctrl backspace
+inoremap <C-Q> <C-\><C-O>dB
 
 " Allow using the repeat operator with a visual selection (!)
 " http://stackoverflow.com/a/8064607/127816
@@ -40,6 +54,7 @@ set undodir=~/.config/nvim/undodir
 
 call plug#begin()
 Plug 'KeitaNakamura/neodark.vim' " Colorscheme
+Plug 'chrisbra/vim-diff-enhanced'
 Plug 'vim-scripts/Vimball' " vim plugin archive manager
 Plug 'godlygeek/tabular' " beautiful vim aliger https://devhints.io/tabular
 Plug 'scrooloose/nerdtree' 
@@ -63,6 +78,7 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/nginx.vim'
+Plug 'zchee/deoplete-jedi'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi' "Typescript advancements
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} " Exectue withhin vim
@@ -115,3 +131,4 @@ au BufRead,BufNewFile nginx.conf set ft=nginx
 
 set mouse=a                 " Automatically enable mouse usage
 set mousehide               " Hide the mouse cursor while typing
+syntax on
