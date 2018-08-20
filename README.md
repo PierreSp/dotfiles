@@ -37,18 +37,18 @@ pip install --user --upgrade virtualfish
     - Run :PlugInstall withhin neovim
 ## Used tools and programs
 
-- bat # better cat
+- bat *better cat*
 - Dropbox
-- fish # Shell extension (used with oh-my-fish with agnoster theme and virtualfish for python envs)
-- kitty # gui based, ssh friendly terminal emulator
-- neovim # Better vim
-- powerline # show more information in terminal
-- redshift # protects your eyes
-- ripgrep # better grep
-- sublime # good coding environment
-- tmux # Terminal multiplexer 
-- vidir # Vi-based multi file renaming tool (AUR)
-- vlc # good video player
-- xcape # redefine keys
-- yay # better yaourt (package manager for AUR)
-- asciinema # Best video studio ever
+- fish *Shell extension (used with oh-my-fish with agnoster theme and virtualfish for python envs)*
+- kitty # gui based, ssh friendly terminal emulator*
+- neovim *Better vim*
+- powerline *show more information in terminal*
+- redshift *protects your eyes*
+- ripgrep *better grep*
+- sublime *good coding environment*
+- tmux *Terminal multiplexer*
+- vidir *Vi-based multi file renaming tool (AUR)*
+- vlc *good video player*
+- xcape *redefine keys*
+- yay *better yaourt (package manager for AUR)*
+- asciinema *Best video studio ever*
