@@ -32,13 +32,14 @@ omf install agnoster
 pip install --user --upgrade neovim
 pip install --user --upgrade jedi
 pip install --user --upgrade black
+pip install --user --upgrade virtualfish
 ```
     - Run :PlugInstall withhin neovim
 ## Used tools and programs
 
 - bat # better cat
 - Dropbox
-- fish # Shell extension (used with oh-my-fish and agnoster theme)
+- fish # Shell extension (used with oh-my-fish with agnoster theme and virtualfish for python envs)
 - kitty # gui based, ssh friendly terminal emulator
 - neovim # Better vim
 - powerline # show more information in terminal
