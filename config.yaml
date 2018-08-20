@@ -11,6 +11,10 @@ dotfiles:
     dst: ~/.i3
     link: true
     src: i3
+  d_jupyter:
+    dst: ~/.jupyter
+    link: true
+    src: jupyter
   d_nvim:
     dst: ~/.config/nvim
     link: true
@@ -31,10 +35,34 @@ dotfiles:
     dst: ~/.bashrc
     link: true
     src: bashrc
+  f_config:
+    dst: ~/.vdirsyncer/config
+    link: true
+    src: vdirsyncer/config
+  f_config.fish:
+    dst: ~/.config/fish/config.fish
+    link: true
+    src: config/fish/config.fish
+  f_fish_greeting:
+    dst: ~/.config/fish/functions/fish_greeting
+    link: true
+    src: config/fish/functions/fish_greeting
+  f_gitconfig:
+    dst: ~/.gitconfig
+    link: true
+    src: gitconfig
+  f_i3status.conf:
+    dst: ~/.i3status.conf
+    link: true
+    src: i3status.conf
   f_kitty.conf:
     dst: ~/.config/kitty/kitty.conf
     link: true
     src: config/kitty/kitty.conf
+  f_omf.fish:
+    dst: ~/.config/fish/conf.d/omf.fish
+    link: true
+    src: config/fish/conf.d/omf.fish
   f_profile:
     dst: ~/.profile
     link: true
@@ -50,3 +78,10 @@ profiles:
     - d_nvim
     - f_kitty.conf
     - d_user
+    - f_gitconfig
+    - f_i3status.conf
+    - f_config
+    - d_jupyter
+    - f_config.fish
+    - f_fish_greeting
+    - f_omf.fish

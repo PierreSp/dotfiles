@@ -13,7 +13,7 @@ pip install --user -r dotfiles/requirements.txt
 
 - Install yay and pacman programs
 ```bash
-inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep
+inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema
 ```
 - Install programs from AUR
 ```bash
@@ -51,3 +51,4 @@ pip install --user --upgrade virtualfish
 - vlc # good video player
 - xcape # redefine keys
 - yay # better yaourt (package manager for AUR)
+- asciinema # Best video studio ever
