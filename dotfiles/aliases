@@ -1,0 +1,73 @@
+#!/bin/bash
+alias cp="cp -i"                          # confirm before overwriting something                 
+alias df="df -h"                          # human-readable sizes
+alias free="free -m"                      # show sizes in MB
+alias more=less
+
+# List directory contents
+alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias l='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+
+# Important one ! Parenting changing perms on /
+alias chown="chown --preserve-root"
+alias chmod="chmod --preserve-root"
+alias chgrp="chgrp --preserve-root"
+
+# Shortcuts
+alias g="git"
+alias v="nvim"
+alias vim="nvim"
+alias i="ipython"
+alias o="open"
+
+# Git aliases
+alias ga="git add"
+alias gb="git branch"
+alias gbr="git branch"
+alias gci="git commit"
+alias gcp="git cherry-pick"
+alias gcl="git clone"
+alias gco="git checkout"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gffs="git add --all; and git commit --amend --no-edit"
+alias gl="git log"
+alias gp="git push"
+alias gps="git push"
+alias gpl="git pull"
+alias gpf="git push --force-with-lease"
+alias gpr="git pull --rebase"
+alias gs="git status"
+alias gsa="git stash apply"
+alias gsh="git show"
+alias gss="git stash save"
+alias gst="git status"
+# Undo git push
+alias gunpush="git push -f origin HEAD^:master"
+
+# Manjaro predefined commands
+alias con="$EDITOR $HOME/.i3/config"
+alias comp="$EDITOR $HOME/.config/compton.conf"
+alias fixit="sudo rm -f /var/lib/pacman/db.lck"
+alias inst="sudo pacman -S"
+alias uninst="sudo pacman -Rsu"
+alias mirrors="sudo pacman-mirrors -g"
+alias printer="system-config-printer"
+alias update="yaourt -Syua"
+alias xopen="xdg-open"
+alias nfetch="neofetch --w3m"
+
+# Bashrcs
+alias bashrc="$EDITOR $HOME/.bashrc"
+alias fishrc="$EDITOR $HOME/.config/fish/config.fish"
+
+# TOols
+alias pow="sudo tlp stat" # required tlp (optimize power seetings)
+alias cal="vdirsyncer sync & vdirsyncer metasync" # my calendar
+
+# SSHFS connections 
+alias jfolder="sshfs jupyterserver:/home/pspri ~/sshfs/jupyter"
+alias jvfolder="sshfs jupyterserver:/home/pspri/.virtualenvs/wpman3/lib/python3.5/site-packages ~/sshfs/jupyterv"
+alias jwpfolder="sshfs jupyterserver:/home/pspri/nnet/wpman ~/sshfs/jupyterwp"
+
