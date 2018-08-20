@@ -5,7 +5,7 @@
 
 - Install dotdrop and load all configs (Make sure the host is correct)
 ```bash
-git clone --recursive https://github.com/nathbo/dotfiles.git ~/dotfiles
+git clone --recursive https://github.com/PierreSp/dotfiles ~/dotfiles
 cd ~/dotfiles
 pip install --user -r dotfiles/requirements.txt
 ./dotdrop.sh install
