@@ -5,7 +5,6 @@
 	],
 	"installed_packages":
 	[
-		"Agila Theme",
 		"Anaconda",
 		"Angular 2 Snippets (John Papa)",
 		"Angular CLI",
@@ -14,7 +13,6 @@
 		"CodeFormatter",
 		"Colorsublime",
 		"Compare Side-By-Side",
-		"Cython",
 		"Cython+",
 		"Fold Python",
 		"GBK Support",
@@ -26,7 +24,6 @@
 		"Outline",
 		"Package Control",
 		"PHP Codebeautifier",
-		"Phpcs",
 		"Python PEP8 Autoformat",
 		"requirementstxt",
 		"Search Stack Overflow",
@@ -42,7 +39,6 @@
 		"SublimeREPL",
 		"tern_for_sublime",
 		"Tomorrow Color Schemes",
-		"Tomorrow Night Italics Color Scheme",
 		"TypeScript",
 		"TypescriptCompletion",
 		"Virtualenv",
