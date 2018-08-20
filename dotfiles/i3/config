@@ -39,9 +39,6 @@ bindsym $mod+d exec --no-startup-id dmenu_recency -sb "#5F819D" -nf "#c5c8c6" -s
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
 
-# Multi monitor
-bindsym $mod+Shift+m exec mons -n right
-exec --no-startup-id mons -a
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -61,7 +58,6 @@ exec --no-startup-id pa-applet
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-# bindsym $mod+F2 exec palemoon
 bindsym $mod+F2 exec google-chrome-stable
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
@@ -205,32 +201,24 @@ assign [class="Pcmanfm"] $ws3
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
-for_window [class="Calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
-for_window [class="GParted"] floating enable border normal
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Lxappearance"] floating enable sticky enable border normal
 for_window [class="Manjaro-hello"] floating enable
 for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="octopi"] floating enable
 for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Skype"] floating enable border normal
-for_window [class="Thus"] floating enable border normal
+for_window [class="Signal-desktop"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="Xfburn"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -289,6 +277,10 @@ mode "resize" {
 #bindsym $mod+l exec --no-startup-id blurlock
 bindsym $mod+Shift+x exec --no-startup-id sh testlock.sh
 
+# Multi monitor
+bindsym $mod+Shift+m exec mons -n right
+exec --no-startup-id mons -a
+
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
@@ -299,7 +291,7 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit
 # exec --no-startup-id blueman
 exec --no-startup-id start_conky_maia
-exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
@@ -308,13 +300,6 @@ exec_always --no-startup-id fix_xcursor
 # https://i3wm.org/docs/userguide.html#xresources
 # Change the variable name at the place you want to match the color
 # of your terminal like this:
-# [example]
-# If you want your bar to have the same background color as your 
-# terminal background change the line 362 from:
-# background  $i3_background
-# to:
-# background $background
-# Same logic applied to everything else.
 set_from_resource $background background
 set_from_resource $foreground foreground
 set_from_resource $color0     color0
@@ -337,7 +322,7 @@ set_from_resource $color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-    status_command py3status
+    status_command i3status
     position bottom
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
@@ -445,16 +430,16 @@ for_window [class="Spotify"] move workspace $ws10
 # exec spotify
 
 # Open htop with standard windows process manager keys; float
-bindsym Ctrl+shift+Escape exec --no-startup-id urxvt -name htop_win -e htop
+bindsym Ctrl+shift+Escape exec --no-startup-id kitty -name htop_win -e htop
 for_window [instance="htop_win"] floating enable sticky enable border none
 
 # Quick terminal; Access with F12; Basically a guake replacement; When closed reopen one with $mod+F12
-exec --no-startup-id urxvt -name "my_guake"
+exec --no-startup-id kitty -name "my_guake"
 for_window [instance="^my_guake$"] floating enable sticky enable border none
 #for_window [instance="my_guake"] move scratchpad; [instance="my_guake"] scratchpad show; move position 0px 0px; resize shrink height 0px; resize grow width 683px; move scratchpad
 for_window [instance="^my_guake$"] move scratchpad; [instance="^my_guake$"] scratchpad show; move scratchpad
 bindsym F12 [instance="^my_guake$"] scratchpad show
-bindsym $mod+F12 exec --no-startup-id urxvt -name my_guake
+bindsym $mod+F12 exec --no-startup-id kitty -name my_guake
 
 # Win+E explorer keybind
 bindsym $mod+e exec terminal -e "ranger"

@@ -13,11 +13,11 @@ pip install --user -r dotfiles/requirements.txt
 
 - Install yay and pacman programs
 ```bash
-inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema
+inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema mons asciiquarium
 ```
 - Install programs from AUR
 ```bash
-yay -S powerline py3status  dropbox sublime-text-dev redshift-gtk vidir
+yay -S powerline py3status dropbox sublime-text-dev redshift-gtk vidir
 
 ```
 
@@ -37,10 +37,13 @@ pip install --user --upgrade virtualfish
     - Run :PlugInstall withhin neovim
 ## Used tools and programs
 
+- asciinema - *Best video studio ever*
+- asciiquarium - *Relaxing screensaver*
 - bat - *better cat*
 - Dropbox
 - fish - *Shell extension (used with oh-my-fish with agnoster theme and virtualfish for python envs)*
 - kitty - *gui based, ssh friendly terminal emulator*
+- mons - *Good wrapper for randr*
 - neovim - *Better vim*
 - powerline - *show more information in terminal*
 - redshift - *protects your eyes*
@@ -51,4 +54,4 @@ pip install --user --upgrade virtualfish
 - vlc - *good video player*
 - xcape - *redefine keys*
 - yay - *better yaourt (package manager for AUR)*
-- asciinema - *Best video studio ever*
+
