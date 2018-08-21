@@ -13,7 +13,7 @@ pip install --user -r dotfiles/requirements.txt
 
 - Install yay and pacman programs
 ```bash
-inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema mons asciiquarium
+inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema mons asciiquarium rofi
 ```
 - Install programs from AUR
 ```bash
@@ -47,6 +47,7 @@ pip install --user --upgrade virtualfish
 - neovim - *Better vim*
 - powerline - *show more information in terminal*
 - redshift - *protects your eyes*
+- rofi - dmenu alternative
 - ripgrep - *better grep*
 - sublime - *good coding environment*
 - tmux - *Terminal multiplexer*
