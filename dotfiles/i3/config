@@ -35,7 +35,7 @@ bindsym Mod1+F4 kill
 
 # start program launcher
 bindsym $mod+d exec --no-startup-id dmenu_recency -sb "#5F819D" -nf "#c5c8c6" -sf "#c5c8c6" 
-
+bindsym $mod+p exec python ~/Projekte/Elasticssearch-Desktop/rofi_script/rofi_elastic.py
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
 

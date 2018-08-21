@@ -34,7 +34,7 @@ pip install --user --upgrade jedi
 pip install --user --upgrade black
 pip install --user --upgrade virtualfish
 ```
-    - Run :PlugInstall withhin neovim
+- Run :PlugInstall withhin neovim
 ## Used tools and programs
 
 - asciinema - *Best video studio ever*
