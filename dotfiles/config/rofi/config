@@ -1,0 +1,4 @@
+rofi.combi-modi:    window,run,ssh
+rofi.theme:         onedark
+rofi.font:          fira code 10
+rofi.modi:          combi

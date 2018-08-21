@@ -19,6 +19,10 @@ dotfiles:
     dst: ~/.config/nvim
     link: true
     src: config/nvim
+  d_rofi:
+    dst: ~/.config/rofi
+    link: true
+    src: config/rofi
   d_scripts:
     dst: ~/scripts
     link: true
@@ -85,3 +89,4 @@ profiles:
     - f_config.fish
     - f_fish_greeting
     - f_omf.fish
+    - d_rofi
