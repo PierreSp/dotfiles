@@ -31,6 +31,10 @@ dotfiles:
     dst: ~/.config/sublime-text-3/Packages/User
     link: true
     src: config/sublime-text-3/Packages/User
+  f__settings.json:
+    dst: ~/.fscrawler/read_uni/_settings.json
+    link: true
+    src: fscrawler/read_uni/_settings.json
   f_aliases:
     dst: ~/.aliases
     link: true
@@ -90,3 +94,4 @@ profiles:
     - f_fish_greeting
     - f_omf.fish
     - d_rofi
+    - f__settings.json
