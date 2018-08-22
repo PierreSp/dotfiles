@@ -17,7 +17,7 @@ inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome x
 ```
 - Install programs from AUR
 ```bash
-yay -S powerline py3status dropbox sublime-text-dev redshift-gtk vidir
+yay -S powerline py3status dropbox sublime-text-dev redshift-gtk signal-desktop vidir
 
 ```
 
@@ -50,6 +50,7 @@ pip install --user --upgrade virtualfish
 - rofi - dmenu alternative
 - ripgrep - *better grep*
 - sublime - *good coding environment*
+- signal  -  Desktop application for signal
 - tmux - *Terminal multiplexer*
 - vidir - *Vi-based multi file renaming tool (AUR)*
 - vlc - *good video player*
