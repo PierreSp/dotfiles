@@ -1,5 +1,5 @@
 rofi.combi-modi:    window,run,ssh
 rofi.theme:         onedark
-rofi.font:          fira code 10
+rofi.font:          fira code 9.5
 rofi.modi:          combi
 rofi.theme: /usr/share/rofi/themes/Arc-Dark.rasi

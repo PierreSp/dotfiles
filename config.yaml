@@ -75,6 +75,10 @@ dotfiles:
     dst: ~/.profile
     link: true
     src: profile
+  f_xresources:
+    dst: ~/.Xresources
+    link: true
+    src: Xresources
 profiles:
   pspri:
     dotfiles:
@@ -95,3 +99,4 @@ profiles:
     - f_omf.fish
     - d_rofi
     - f__settings.json
+    - f_xresources

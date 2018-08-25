@@ -13,6 +13,8 @@
 	"font_size": 10,
 	"ignored_packages":
 	[
+		"ActionScript",
+		"Jedi - Python autocompletion",
 		"Vintage"
 	],
 	"theme": "Seti.sublime-theme",
