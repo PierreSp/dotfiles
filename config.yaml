@@ -79,6 +79,10 @@ dotfiles:
     dst: ~/.config/redshift.conf
     link: true
     src: config/redshift.conf
+  f_spacemacs:
+    dst: ~/.spacemacs
+    link: true
+    src: spacemacs
   f_xresources:
     dst: ~/.Xresources
     link: true
@@ -105,3 +109,4 @@ profiles:
     - f__settings.json
     - f_xresources
     - f_redshift.conf
+    - f_spacemacs

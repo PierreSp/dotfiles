@@ -426,6 +426,7 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id i3-msg 'workspace $ws2; exec google-chrome-stable'
 exec --no-startup-id ~/script/caps
 exec --no-startup-id signal-desktop
+exec --no-startup-id emacs --daemon
 
 # Spotify
 for_window [class="Spotify"] move workspace $ws10
