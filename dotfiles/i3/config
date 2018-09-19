@@ -427,6 +427,7 @@ exec --no-startup-id i3-msg 'workspace $ws2; exec google-chrome-stable'
 exec --no-startup-id ~/script/caps
 exec --no-startup-id signal-desktop
 exec --no-startup-id emacs --daemon
+bindsym $mod+e exec emacsclient -c
 
 # Spotify
 for_window [class="Spotify"] move workspace $ws10
@@ -449,7 +450,6 @@ bindsym F12 [instance="^my_guake$"] scratchpad show
 bindsym $mod+F12 exec --no-startup-id kitty --name my_guake
 
 # Win+E explorer keybind
-bindsym $mod+e exec terminal -e "ranger"
 bindsym $mod+Shift+y fullscreen disable, floating enable, resize set 400 300, sticky enable, move window to position 1515 20
 
 # move worspaces

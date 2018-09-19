@@ -20,6 +20,8 @@ alias v="nvim"
 alias vim="nvim"
 alias i="ipython"
 alias o="open"
+alias evil="emacsclient -nc"
+alias vil="emacsclient -t"
 
 # Git aliases
 alias ga="git add"
