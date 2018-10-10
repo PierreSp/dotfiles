@@ -377,12 +377,37 @@ you should place your code here."
   (cua-mode 1)
   ;; ORG MODE STUFF
   ;;
+  ;; use pretty things for the clocktable
+  (setq org-pretty-entities t)
+  (setq org-columns-default-format "%50ITEM(Task) %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM")
+
+  ;; Save the running clock and all clock history when exiting Emacs,
+  ;; load it on startup
+  (setq org-clock-persist t)
+
+  ;; Use f5 and f8 for clocks
+  (fset 'my-clock-in "\C-c\C-x\C-i")
+  (global-set-key (kbd "<f5>") 'my-clock-in)
+
+  (fset 'my-clock-out "\C-c\C-x\C-o")
+  (global-set-key (kbd "<f8>") 'my-clock-out)
+
+  ;; Allow many clocks
+  (setq org-clock-history-length 40)
+
+  ;; Resume clocking task on clock-in if the clock is open
+  (setq org-clock-in-resume t)
+
+  ;; Include running clocks in report:
+  (setq org-clock-report-include-clocking-task t)
+
+  ;; Log when done
   (setq org-log-done 'time)
   (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1 )))
+
   ;; Show priorites:
   (setq org-agenda-fontify-priorities
         (quote ((65 (:foreground "Red")) (66 (:foreground "Blue")) (67 (:foreground "Darkgreen")))))
-
   (setq org-agenda-date-weekend (quote (:foreground "Yellow" :weight bold)))
 
   ;; Do not show tasks which are done:
