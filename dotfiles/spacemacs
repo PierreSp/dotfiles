@@ -41,7 +41,8 @@ values."
      helm
      auto-completion
      better-defaults
-     c-c++
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode)
      emacs-lisp
      html
      markdown
@@ -381,6 +382,17 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; set margin for scrolling
+  (setq scroll-margin 5)
+  ;; allow inline images
+  (setq org-display-inline-images t)
+  (setq org-redisplay-inline-images t)
+  (setq org-startup-with-inline-images t)
+
+  ;; Org mode keybinding
+  (with-eval-after-load 'org
+    (evil-define-key '(normal insert) org-mode-map (kbd "M-RET M-RET") 'org-meta-return))
+
   ;; C and CPP stuff
   ;(push '("C" "h") projectile-other-file-alist)
   ;(push '(other . "python") c-default-style)
@@ -453,7 +465,11 @@ you should place your code here."
       ))
   ;; Set refile target files
   ;(setq org-refile-targets (quote (("~/org/vorlesungen.org" :maxlevel . 3)
-  ;                                 )))
+                                        ;                                 )))
+  (server-start)
+  (require 'org-protocol)
+  (with-eval-after-load 'org
+    (add-to-list 'org-modules 'org-protocol))
   (setq org-agenda-files
       (quote ("~/calendar.org")))
   (setq org-capture-templates
