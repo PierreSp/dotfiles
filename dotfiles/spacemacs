@@ -38,35 +38,40 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
      auto-completion
      better-defaults
+     bibtex
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode)
+
+     (org :variables org-want-todo-bindings t)
      emacs-lisp
-     html
-     markdown
-     ipython-notebook
-     shell-scripts ;; for fish
-     speed-reading
-     spacemacs-org
+     evil-commentary
      git
      google-calendar
-     pdf-tools
-     pandoc
-     bibtex
+     helm
+     html
+     (latex :variables
+                     latex-enable-auto-fill nil
+                     latex-enable-folding t)
+     ipython-notebook
      markdown
-     (org :variables org-want-todo-bindings t)
-     ;; (org :variables
-     ;;      org-projectile-file "TODOs.org")
+     markdown
+     pandoc
+     pdf-tools
+     (python :variables
+             python-test-runner 'pytest)
+     shell-scripts ;; for fish
+     spell-checking
+     spacemacs-org
+     speed-reading
+     syntax-checking
      themes-megapack
-     python
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     spell-checking
-     syntax-checking
      version-control
+     yaml
      )
       ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
