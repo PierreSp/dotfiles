@@ -38,7 +38,13 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-private-snippets-directory nil)
      better-defaults
      bibtex
      (c-c++ :variables
@@ -82,11 +88,13 @@ values."
                                       org-download
                                       fish-completion
                                       conda
-                                      pdf-tools)
+                                      pdf-tools
+                                      yasnippet-snippets
+                                      interleave)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(org-projectile)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -332,10 +340,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  ;; Custom Key Bindings
-  ;;(global-set-key (kbd "<S-f12>") 'org-agenda)
-  ;;(global-set-key (kbd "<S-f5>") 'bh/org-todo)
-  ;; Settings for babel
+  ;; Save last usage desktop
+  (desktop-save-mode 1)
+  ;; Settings for babel to support autocomplete
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -346,15 +353,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
      (org . t)
      (dot . t)
      (gnuplot . t)
-     (ruby . t)
-     (screen . nil)
-     (ledger . t)
      (C . t)
      (calc . t)
-     (sql . t)
-     (ditaa . t)))
+     ))
+
+  ;; org style settings
   (setq org-src-fontify-natively nil)
-  (setq org-edit-src-content-indentation 0)
   (setq org-src-tab-acts-natively t)
   (setq org-src-preserve-indentation t)
   ;; Set Neotree to F1
@@ -362,6 +366,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; No more warnings in the init, but might actually lead to problems
   (setq explicit-shell-file-name "/bin/fish")
   (setq shell-file-name "fish")
+
   ;; Activate line numbers
   (setq-default dotspacemacs-line-numbers 't)
   ;; Nicer undo
@@ -378,7 +383,32 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; Google Calendar
   (setq org-gcal-client-id (car auth-lines)
         org-gcal-client-secret (car (cdr auth-lines)))
- )
+  (defun org-ref-config ()
+    (setq reftex-default-bibliography '("~/UNI/papers/references.bib"))
+
+    ;; see org-ref for use of these variables
+    (setq org-ref-bibliography-notes "~/UNI/papers/notes.org"
+          org-ref-default-bibliography '("~/UNI/papers/references.bib")
+          org-ref-pdf-directory "~/UNI/papers/bibtex-pdfs/")
+
+    ;; Further variables for helm-bibtex
+    (setq bibtex-completion-bibliography "~/UNI/papers/references.bib"
+          bibtex-completion-library-path "~/UNI/papers/bibtex-pdfs"
+          bibtex-completion-notes-path "~/UNI/papers/helm-bibtex-notes")
+
+    ;; open pdf with system pdf viewer (works on mac)
+    (setq bibtex-completion-pdf-open-function
+          (lambda (fpath)
+            (start-process "open" "*open*" "open" fpath)))
+
+    ;; alternative
+    ;; (setq bibtex-completion-pdf-open-function 'org-open-file)
+
+    ;; Download directory
+    (setq biblio-download-directory "~/UNI/papers/bibtex-pdfs")
+    )
+  )
+
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -387,6 +417,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; set hotkey for yay snippet completion
+  (global-set-key "\M-j" 'hippie-expand)
   ;; set margin for scrolling
   (setq scroll-margin 5)
   ;; allow inline images
@@ -398,9 +430,6 @@ you should place your code here."
   (with-eval-after-load 'org
     (evil-define-key '(normal insert) org-mode-map (kbd "M-RET M-RET") 'org-meta-return))
 
-  ;; C and CPP stuff
-  ;(push '("C" "h") projectile-other-file-alist)
-  ;(push '(other . "python") c-default-style)
   ;; Activate cua mode (allows ctrl+c,v,...)
   (cua-mode 1)
   ;;Cpp stuff
@@ -411,6 +440,13 @@ you should place your code here."
                 '((c-c++ :variables c-c++-enable-clang-support t)))
   ;; ORG MODE STUFF
   ;;
+  ;; Save everything at autosave
+  (add-hook 'auto-save-hook 'org-save-all-org-buffers)
+  ;; Start agenda in day mode
+  (setq org-agenda-span 1)
+  ;; Start week on monday
+  (setq org-agenda-start-on-weekday 1)
+
   ;; use pretty things for the clocktable
   (setq org-pretty-entities t)
   (setq org-columns-default-format "%50ITEM(Task) %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM")
@@ -476,7 +512,10 @@ you should place your code here."
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol))
   (setq org-agenda-files
-      (quote ("~/calendar.org")))
+        (quote ("~/calendar.org"))
+        (quote ("~/Projekte/org/uni_cal.org"))
+        (quote("~/Projekte/org/tasks.org"))
+        )
   (setq org-capture-templates
         '(("t" "Aufgabe in tasks.org" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
            "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
@@ -515,6 +554,8 @@ you should place your code here."
 
         ; For tag searches ignore tasks with scheduled and deadline dates
         (setq org-agenda-tags-todo-honor-ignore-options t)
+        ;; Start week on monday
+        (setq org-agenda-start-on-weekday 1)
   ;; Set hook to sync gcal after each entry and enably desktop notifications
   (add-hook 'org-capture-after-finalize-hook 'google-calendar/sync-cal-after-capture)
   (setq alert-default-style 'libnotify)
@@ -558,10 +599,10 @@ you should place your code here."
  '(line-number-mode nil)
  '(org-agenda-files
    (quote
-    ("~/Projekte/org/uni_cal.org" "~/Projekte/org/tasks.org" "~/calendar.org")))
+    ("~/Projekte/org/uni_cal.org" "~/calendar.org" "~/Projekte/org/tasks.org")))
  '(package-selected-packages
    (quote
-    (iedit smartparens highlight avy projectile helm helm-core hydra spray pandoc-mode ox-pandoc ht org-ref pdf-tools key-chord ivy tablist insert-shebang helm-bibtex parsebib fish-mode fish-completion ein skewer-mode websocket js2-mode simple-httpd disaster conda company-shell company-c-headers cmake-mode clang-format biblio biblio-core org-projectile org-projectile-helm zenburn-theme zen-and-art-theme yapfify white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme professional-theme planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme live-py-mode light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme hy-mode dash-functional heroku-theme hemisu-theme helm-pydoc hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-anaconda color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme anaconda-mode pythonic ample-zen-theme ample-theme alect-themes afternoon-theme web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data leuven-dark-theme leuven-theme org-gcal request-deferred deferred calfw xterm-color unfill smeargle shell-pop orgit org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy graphql with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (company-quickhelp yasnippet-snippets evil yaml-mode interleave evil-commentary company-auctex auctex-latexmk auctex iedit smartparens highlight avy projectile helm helm-core hydra spray pandoc-mode ox-pandoc ht org-ref pdf-tools key-chord ivy tablist insert-shebang helm-bibtex parsebib fish-mode fish-completion ein skewer-mode websocket js2-mode simple-httpd disaster conda company-shell company-c-headers cmake-mode clang-format biblio biblio-core org-projectile org-projectile-helm zenburn-theme zen-and-art-theme yapfify white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme professional-theme planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme live-py-mode light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme hy-mode dash-functional heroku-theme hemisu-theme helm-pydoc hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-anaconda color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme anaconda-mode pythonic ample-zen-theme ample-theme alect-themes afternoon-theme web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data leuven-dark-theme leuven-theme org-gcal request-deferred deferred calfw xterm-color unfill smeargle shell-pop orgit org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy graphql with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
