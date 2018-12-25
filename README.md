@@ -27,15 +27,9 @@ curl -L https://get.oh-my.fish | fish
 omf install agnoster
 ```
 
-- Install python tools for neovim and spacemacs
+- Install python tools (will ask for different setups (data science, autocomplete, stats)
 ```bash
-pip install --user --upgrade neovim
-pip install --user --upgrade jedi
-pip install --user --upgrade black flake8 autoflake
-pip install --user --upgrade virtualfish
-pip install --user --upgrade importmagic epc
-pip install --user --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
-
+sh dotfiles/scripts/install_py_packages.sh
 ```
 - Run :PlugInstall withhin neovim
 ## Used tools and programs
@@ -59,4 +53,3 @@ pip install --user --upgrade "jedi>=0.9.0" "json-rpc>=1.8.1" "service_factory>=0
 - vlc - *good video player*
 - xcape - *redefine keys*
 - yay - *better yaourt (package manager for AUR)*
-
