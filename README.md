@@ -13,7 +13,7 @@ pip install --user -r dotfiles/requirements.txt
 
 - Install yay and pacman programs
 ```bash
-inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema mons asciiquarium rofi
+inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema mons asciiquarium rofi adobe-source-code-pro-fonts
 ```
 - Install programs from AUR
 ```bash
