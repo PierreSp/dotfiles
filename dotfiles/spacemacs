@@ -816,6 +816,8 @@ before packages are loaded."
   (require 'org-protocol)
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol))
+
+(evil-want-Y-yank-to-eol nil)
   (setq org-agenda-files
         (list "~/calendar.org"
         "~/Projekte/org/uni_cal.org"
