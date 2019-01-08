@@ -487,6 +487,25 @@ See the header of this file for more information."
 ;; configuration.
 ;; It is mostly for variables that should be set before packages are loaded.
 ;; If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  ;; Enable persistent undo tree with fixes
+  ;; Thanks to https://github.com/syl20bnr/spacemacs/issues/774
+  (setq
+   desktop-dirname             "~/.emacs.d/session/"
+   desktop-path                (list desktop-dirname)
+        desktop-auto-save-timeout 5
+        desktop-restore-eager 5) ;; lazily restore desktop buffers
+  (desktop-save-mode 1)
+
+  ;; add before `desktop-read' hook
+  (defvar desktop-before-read-hook '() "Hooks run before `desktop-read'.")
+  (defadvice desktop-read (before my:desktop-read-run-before-hooks activate)
+    (run-hooks 'desktop-before-read-hook))
+
+  (setq undo-tree-auto-save-history t)
+  (defun my:enable-global-undo-tree()
+    (global-undo-tree-mode 1)
+    (diminish 'undo-tree-mode))
+  (add-hook 'desktop-before-read-hook 'my:enable-global-undo-tree)
 ;; (use-package pytest
 ;;   :init
 ;;   (progn
