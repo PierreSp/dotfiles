@@ -94,9 +94,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(org-plus-contrib
                                       org-ref
                                       org-download
-                                      fish-completion
                                       conda
-                                      pdf
                                       flycheck
                                       ;pretty-mode
                                       ;pretty-symbols
@@ -248,7 +246,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -404,7 +402,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil `smartparens-strict-mode' will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode 't
+   dotspacemacs-smartparens-strict-mode nil
 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
@@ -418,7 +416,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server nil
+   dotspacemacs-enable-server 't
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -484,86 +482,88 @@ See the header of this file for more information."
   (spacemacs/load-spacemacs-env))
 
 (defun dotspacemacs/user-init ()
-  "Initialization for user code:
-This function is called immediately after `dotspacemacs/init', before layer
-configuration.
-It is mostly for variables that should be set before packages are loaded.
-If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-
-  (add-to-list 'package-pinned-packages '(spaceline. "melpa-stable") t)
-  ;; (use-package pytest
-  ;;   :init
-  ;;   (progn
-  ;;     (setq pytest-cmd-format-string "cd %s; and pipenv run %s %s %s"))
-  ;;   :ensure t)
+;;   "Initialization for user code:
+;; This function is called immediately after `dotspacemacs/init', before layer
+;; configuration.
+;; It is mostly for variables that should be set before packages are loaded.
+;; If you are unsure, try setting them in `dotspacemacs/user-config' first."
+;; (use-package pytest
+;;   :init
+;;   (progn
+;;     (setq pytest-cmd-format-string "cd %s; and pipenv run %s %s %s"))
+;;   :ensure t)
 ;; Save last usage desktop
-  (desktop-save-mode 1)
-  ;; Settings for babel to support autocomplete
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)
-     (shell . t)
-     (js . t)
-     (latex . t)
-     (org . t)
-     (dot . t)
-     (gnuplot . t)
-     (C . t)
-     (calc . t)
-     ))
+;;(desktop-save-mode 1)
+;; Settings for babel to support autocomplete
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((emacs-lisp . t)
+;;    (python . t)
+;;    (shell . t)
+;;    (js . t)
+;;    (latex . t)
+;;    (org . t)
+;;    (gnuplot . t)
+;;    (C . t)
+;;    (calc . t)
+;;    ))
+  ;; easier comments - thanks to nath
+  (global-set-key (kbd "C-S-c") 'evil-commentary-line)
 
-  ;; Org style settings
-  (setq org-src-fontify-natively nil)
-  (setq org-src-tab-acts-natively t)
-  (setq org-src-preserve-indentation t)
-  ;; Set Neotree to F1
-  (define-key global-map (kbd "<f1>") 'neotree)
-  ;; No more warnings in the init, but might actually lead to problems
-  (setq explicit-shell-file-name "/bin/fish")
-  (setq shell-file-name "fish")
+;; ;; Org style settings
+;(setq org-src-fontify-natively nil)
+;(setq org-src-tab-acts-natively t)
+;(setq org-src-preserve-indentation t)
+;; Set Neotree to F1
+(define-key global-map (kbd "<f1>") 'neotree)
+;;; No more warnings in the init, but might actually lead to
+;(setq explicit-shell-file-name "/bin/fish")
+;(setq shell-file-name "fish")
 
   ;; Nicer undo
-  (setq evil-want-fine-undo t)
-  ;; Nice way to get cal auth data (thanks to nathanael)
-  ;; Read lines from gcal.auth and store them in the variable
-  ;; Function to read lines of a file and output a list
-  (defun read-lines (filePath)
-    "Return a list of lines of a file at filePath."
-    (with-temp-buffer
-      (insert-file-contents filePath)
-      (split-string (buffer-string) "\n" t)))
-  (setq auth-lines (read-lines "~/gcal.auth"))
-  ;; Google Calendar
-  (setq org-gcal-client-id (car auth-lines)
-        org-gcal-client-secret (car (cdr auth-lines)))
-  (defun org-ref-config ()
-    (setq reftex-default-bibliography '("~/UNI/papers/references.bib"))
+;(setq evil-want-fine-undo t)
+;; Nice way to get cal auth data (thanks to nathanael)
+;; Read lines from gcal.auth and store them in the variable
+;; Function to read lines of a file and output a list
+(defun read-lines (filePath)
+  "Return a list of lines of a file at filePath."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (split-string (buffer-string) "\n" t)))
+(setq auth-lines (read-lines "~/gcal.auth"))
+;; Google Calendar
+(setq org-gcal-client-id (car auth-lines)
+      org-gcal-client-secret (car (cdr auth-lines)))
+(defun org-ref-config ()
+  (setq reftex-default-bibliography '("~/UNI/papers/references.bib"))
 
-    ;; see org-ref for use of these variables
-    (setq org-ref-bibliography-notes "~/UNI/papers/notes.org"
-          org-ref-default-bibliography '("~/UNI/papers/references.bib")
-          org-ref-pdf-directory "~/UNI/papers/bibtex-pdfs/")
+  ;; see org-ref for use of these variables
+  (setq org-ref-bibliography-notes "~/UNI/papers/notes.org"
+        org-ref-default-bibliography '("~/UNI/papers/references.bib")
+        org-ref-pdf-directory "~/UNI/papers/bibtex-pdfs/")
 
-    ;; Further variables for helm-bibtex
-    (setq bibtex-completion-bibliography "~/UNI/papers/references.bib"
-          bibtex-completion-library-path "~/UNI/papers/bibtex-pdfs"
-          bibtex-completion-notes-path "~/UNI/papers/helm-bibtex-notes")
+  ;; Further variables for helm-bibtex
+  (setq bibtex-completion-bibliography "~/UNI/papers/references.bib"
+        bibtex-completion-library-path "~/UNI/papers/bibtex-pdfs"
+        bibtex-completion-notes-path "~/UNI/papers/helm-bibtex-notes")
 
-    ;; open pdf with system pdf viewer (works on mac)
-    (setq bibtex-completion-pdf-open-function
-          (lambda (fpath)
-            (start-process "open" "*open*" "open" fpath)))
+  ;; open pdf with system pdf viewer (works on mac)
+  (setq bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (start-process "open" "*open*" "open" fpath)))
 
-    ;; alternative
-    ;; (setq bibtex-completion-pdf-open-function 'org-open-file)
+  ;; alternative
+  ;; (setq bibtex-completion-pdf-open-function 'org-open-file)
 
-    ;; Download directory
-    (setq biblio-download-directory "~/UNI/papers/bibtex-pdfs")
-    )
-
+  ;; Download directory
+  (setq biblio-download-directory "~/UNI/papers/bibtex-pdfs")
+  ;; Hotkeys - thanks to nathbo
+  (evil-leader/set-key-for-mode 'org-mode "I" 'interleave-mode)
+  (evil-leader/set-key-for-mode 'org-mode "B" 'helm-bibtex)
+  (evil-leader/set-key-for-mode 'bibtex-mode "B" 'helm-bibtex)
   )
+
+)
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
@@ -573,11 +573,11 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
-  "Configuration for user code:
-This function is called at the very end of Spacemacs startup, after layer
-configuration.
-Put your configuration code here, except for variables that should be set
-before packages are loaded."
+;  "Configuration for user code:
+;; This function is called at the very end of Spacemacs startup, after layer
+;; configuration.
+;; Put your configuration code here, except for variables that should be set
+;; before packages are loaded."
   ; Set Icon theme for neotree
   (setq neo-theme 'icons)
 
@@ -729,7 +729,7 @@ before packages are loaded."
   (setq scroll-margin 5)
   ;; allow inline images
   (setq org-display-inline-images t)
-  (setq org-redisplay-inline-images t)
+;;  (setq org-redisplay-inline-images t)
   (setq org-startup-with-inline-images t)
 
   ;; Org mode keybinding
@@ -739,11 +739,11 @@ before packages are loaded."
   ;; Activate cua mode (allows ctrl+c,v,...)
   (cua-mode 1)
   ;;Cpp stuff
-  (setq-default dotspacemacs-configuration-layers
-                '((c-c++ :variables
-                         c-c++-default-mode-for-headers 'c++-mode)))
-  (setq-default dotspacemacs-configuration-layers
-                '((c-c++ :variables c-c++-enable-clang-support t)))
+;  (setq-default dotspacemacs-configuration-layers
+;                '((c-c++ :variables
+;                         c-c++-default-mode-for-headers 'c++-mode)))
+;  (setq-default dotspacemacs-configuration-layers
+;                '((c-c++ :variables c-c++-enable-clang-support t)))
   ;; ORG MODE STUFF
   ;;
   ;; Save everything at autosave
@@ -769,7 +769,7 @@ before packages are loaded."
   (global-set-key (kbd "<f8>") 'my-clock-out)
 
   ;; Allow many clocks
-  (setq org-clock-history-length 45)
+  (setq org-clock-history-length 95)
 
   ;; Resume clocking task on clock-in if the clock is open
   (setq org-clock-in-resume t)
@@ -782,9 +782,6 @@ before packages are loaded."
 
   ;; Clock out when moving task to a done state
   (setq org-clock-out-when-done t)
-
-  ;; Do not prompt to resume an active clock
-  (setq org-clock-persist-query-resume nil)
 
   ;; Enable auto clock resolution for finding open clocks
   (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
@@ -810,19 +807,16 @@ before packages are loaded."
   (setq org-gcal-file-alist '(("pspri99@gmail.com" . "~/calendar.org")
         ("h8raedgh2c8hoa7fk49v8aogmc0ldbda@import.calendar.google.com" . "~/Projekte/org/uni_cal.org")
       ))
-  ;; Set refile target files
-  ;(setq org-refile-targets (quote (("~/org/vorlesungen.org" :maxlevel . 3)
-                                        ;                                 )))
   (server-start)
   (require 'org-protocol)
   (with-eval-after-load 'org
     (add-to-list 'org-modules 'org-protocol))
 
-  (setq org-agenda-files
-        (list "~/calendar.org"
-        "~/Projekte/org/uni_cal.org"
-        "~/Projekte/org/tasks.org"
-        ))
+  (setq org-agenda-files'(
+      "~/calendar.org"
+      "~/Projekte/org/uni_cal.org"
+      "~/Projekte/org/tasks.org"
+      ))
   (setq org-capture-templates
         '(("t" "Aufgabe in tasks.org" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
            "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
@@ -858,7 +852,7 @@ before packages are loaded."
 
                                         ; Allow setting single tags without the menu
         (setq org-fast-tag-selection-single-key (quote expert))
-
+        (setq org-archive-tag "inactive")
         ; For tag searches ignore tasks with scheduled and deadline dates
         (setq org-agenda-tags-todo-honor-ignore-options t)
         ;; Start week on monday
@@ -870,7 +864,7 @@ before packages are loaded."
   (spacemacs/toggle-truncate-lines-on)
   ;; Visual line navigation for textual modes
    (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
-  ;; I would like to use projectile, but new errors rose...
+  ;; I would like to use projectile, but new errors
 ;; (with-eval-after-load 'org-agenda
 ;;   (require 'org-projectile)
 ;;   (push (org-projectile:todo-files) org-agenda-files))
@@ -887,6 +881,8 @@ before packages are loaded."
                 ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
                 ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
                 ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+  ;; open pdfs scaled to fit page
+  (setq-default pdf-view-display-size 'fit-page)
 )
 
 
@@ -902,11 +898,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (eldoc-eval magit powerline flycheck spaceline-config zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum white-sand-theme which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spray spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme pyvenv python-pytest pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox pandoc-mode ox-pandoc overseer orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-gcal org-download org-bullets org-brain open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-ipython noctilux-theme neotree naquadah-theme nameless mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-svn magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode link-hint light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme interleave insert-shebang inkpot-theme indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy font-lock+ flyspell-correct-helm flycheck-rtags flycheck-pos-tip flycheck-cython flycheck-bashate flx-ido flatui-theme flatland-theme fish-mode fish-completion fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-commentary evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein editorconfig dumb-jump dracula-theme dotenv-mode doom-themes doom-modeline django-theme disaster diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile conda company-web company-statistics company-shell company-rtags company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode clang-format cherry-blossom-theme centered-cursor-mode calfw busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (evil-nerd-commenter zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum white-sand-theme which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spray spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme pyvenv python-pytest pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme pippel pipenv pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el password-generator paradox pandoc-mode ox-pandoc overseer orgit organic-green-theme org-ref org-projectile org-present org-pomodoro org-mime org-gcal org-download org-bullets org-brain open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-ipython noctilux-theme neotree naquadah-theme nameless mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-svn magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum live-py-mode link-hint light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme interleave insert-shebang inkpot-theme indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fuzzy font-lock+ flyspell-correct-helm flycheck-rtags flycheck-pos-tip flycheck-cython flycheck-bashate flx-ido flatui-theme flatland-theme fish-mode fish-completion fill-column-indicator farmhouse-theme fancy-battery eziam-theme eyebrowse expand-region exotica-theme evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-commentary evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein editorconfig dumb-jump dracula-theme dotenv-mode doom-themes doom-modeline django-theme disaster diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile conda company-web company-statistics company-shell company-rtags company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode clang-format cherry-blossom-theme centered-cursor-mode calfw busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
