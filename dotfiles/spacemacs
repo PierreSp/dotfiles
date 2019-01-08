@@ -487,11 +487,15 @@ See the header of this file for more information."
 ;; configuration.
 ;; It is mostly for variables that should be set before packages are loaded.
 ;; If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  ;; Activate cua mode (allows ctrl+c,v,...)
+  (cua-mode 1)
+
   ;; Enable persistent undo tree with fixes
   ;; Thanks to https://github.com/syl20bnr/spacemacs/issues/774
+  ;; Usage: https://emacs.stackexchange.com/questions/27339/how-to-operate-the-undo-redo-tree-in-spacemacs
   (setq
-   desktop-dirname             "~/.emacs.d/session/"
-   desktop-path                (list desktop-dirname)
+        desktop-dirname             "~/.emacs.d/session/"
+        desktop-path                (list desktop-dirname)
         desktop-auto-save-timeout 5
         desktop-restore-eager 5) ;; lazily restore desktop buffers
   (desktop-save-mode 1)
@@ -755,9 +759,7 @@ dump."
   (with-eval-after-load 'org
     (evil-define-key '(normal insert) org-mode-map (kbd "M-RET M-RET") 'org-meta-return))
 
-  ;; Activate cua mode (allows ctrl+c,v,...)
-  (cua-mode 1)
-  ;;Cpp stuff
+ ;;Cpp stuff
 ;  (setq-default dotspacemacs-configuration-layers
 ;                '((c-c++ :variables
 ;                         c-c++-default-mode-for-headers 'c++-mode)))
@@ -777,8 +779,9 @@ dump."
   (setq org-columns-default-format "%50ITEM(Task) %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM")
 
   ;; Save the running clock and all clock history when exiting Emacs,
-  ;; load it on startup
-  (setq org-clock-persist t)
+  ;; Clock out when exiting emacs
+  ;; (setq org-clock-persist t)
+  (add-hook 'kill-emacs-hook #'org-clock-out)
 
   ;; Use f5 and f8 for clocks
   (fset 'my-clock-in "\C-c\C-x\C-i")
@@ -835,6 +838,7 @@ dump."
       "~/calendar.org"
       "~/Projekte/org/uni_cal.org"
       "~/Projekte/org/tasks.org"
+      "~/org/"
       ))
   (setq org-capture-templates
         '(("t" "Aufgabe in tasks.org" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
@@ -852,7 +856,16 @@ dump."
       ("c" "Add normal entry to google calendar" entry
        (file "~/calendar.org")
        "* %?
- %^T" :empty-lines 1 :empty-lines-after 1 :time-prompt t)))
+ %^T" :empty-lines 1 :empty-lines-after 1 :time-prompt t)
+
+      ("m" "Masterarbeit")
+      ("mq" "Masterarbeit: Question" entry (file+headline "~/org/mt_general.org" "Open Questions")
+       "- %?")
+      ("mt" "Masterarbeit: ToDo" entry (file+headline "~/org/mt_general.org" "Todo")
+       "* TODO %?")
+      ("mg" "Masterarbeit: General" entry (file+olp "~/org/mt_general.org" "General")
+       "* %?")
+      ))
                                         ; Tags with fast selection keys
         (setq org-tag-alist (quote ((:startgroup)
                                     ("@uni" . ?u)
@@ -861,11 +874,11 @@ dump."
                                     ("@muenchen" . ?m)
                                     (:endgroup)
                                     ("WAITING" . ?w)
-                                    ("HOLD" . ?h)
                                     ("PERSONAL" . ?P)
                                     ("WORK" . ?W)
                                     ("ORG" . ?O)
                                     ("NOTE" . ?n)
+                                    ("habit" .?h)
                                     ("CANCELLED" . ?c)
                                     ("FLAGGED" . ??))))
 
@@ -887,6 +900,65 @@ dump."
 ;; (with-eval-after-load 'org-agenda
 ;;   (require 'org-projectile)
 ;;   (push (org-projectile:todo-files) org-agenda-files))
+   ;; start with someday and filters - thanks to nathbo
+   (setq org-agenda-filter-preset '("-someday"))
+  (setq org-agenda-custom-commands
+        ;; (append org-agenda-custom-commands
+                '(("g" . "GTD-Workflow")
+                  ("gw" "Upcoming week" agenda ""
+                   ((org-agenda-span 'week)
+                    (org-agenda-filter-preset '("-habit"))
+                    (org-agenda-view-columns-initially t)
+                    ))
+                  ("gr" "Review past week" agenda
+                   ((org-agenda-span 'week)
+                    (org-agenda-skip-scheduled-if-done nil)
+                    (org-agenda-log-mode)
+                    ))
+
+                  ("n" "Next Actions"
+                   ((todo "TODO"
+                    ((org-agenda-filter-preset '("-someday"))
+                     (org-agenda-todo-ignore-scheduled t)
+                     (org-deadline-warning-days 90)))
+                    (tags-todo "habit")
+                    (agenda ""
+                     ((org-agenda-entry-types '(:deadline))
+                      (org-agenda-span 1)
+                      (org-deadline-warning-days 90)
+                      (org-agenda-time-grid nil)
+                      (org-agenda-overriding-header "Upcoming Deadlines")
+                      ))
+                    ))
+
+                  ;; Special types
+                  ("s" "Someday" tags "someday"
+                   ((org-agenda-filter-preset '("+someday"))
+                    (org-use-tag-inheritance nil)
+                    (org-agenda-todo-ignore-with-date nil)))
+
+                  ;; Contexts
+                  ("h" "@Home"
+                   ((tags "@HOME"
+                         ((org-agenda-todo-ignore-with-date nil)))
+                   ))
+                  ("u" "@Uni"
+                   ((tags "@UNI"
+                          ((org-agenda-todo-ignore-with-date nil)))
+                    ))
+
+                  ("d" "Upcoming deadlines" agenda ""
+                   ((org-agenda-entry-types '(:deadline))
+                    (org-agenda-span 1)
+                    (org-deadline-warning-days 60)
+                    (org-agenda-overriding-header "Upcoming Deadlines")
+                    (org-agenda-time-grid nil)))
+
+                  )
+                )
+
+
+
   ;; Custom todo keys
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
