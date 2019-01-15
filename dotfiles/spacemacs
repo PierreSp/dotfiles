@@ -489,7 +489,9 @@ See the header of this file for more information."
 ;; If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Activate cua mode (allows ctrl+c,v,...)
   (cua-mode 1)
-
+  ;; Set long and latiude for sunset
+  (setq calendar-latitude 48.248872)
+  (setq calendar-longitude 11.653248)
   ;; Enable persistent undo tree with fixes
   ;; Thanks to https://github.com/syl20bnr/spacemacs/issues/774
   ;; Usage: https://emacs.stackexchange.com/questions/27339/how-to-operate-the-undo-redo-tree-in-spacemacs
