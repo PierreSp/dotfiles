@@ -507,7 +507,6 @@ See the header of this file for more information."
   (defvar desktop-before-read-hook '() "Hooks run before `desktop-read'.")
   (defadvice desktop-read (before my:desktop-read-run-before-hooks activate)
     (run-hooks 'desktop-before-read-hook))
-
   (setq undo-tree-auto-save-history t)
   (defun my:enable-global-undo-tree()
     (global-undo-tree-mode 1)
@@ -564,15 +563,6 @@ dump."
   ;; before packages are loaded."
                                         ; Set Icon theme for neotree
   (setq neo-theme 'icons)
-  ;; activate clock
-  (spacemacs/toggle-mode-line-org-clock-on)
-  ;; Indentation helper / still not sure about that
-                                        ;(spacemacs/toggle-indent-guide-globally-on)
-  ;; display time in powerline
-                                        ; (spacemacs|define-mode-line-segment date-time-segment
-                                        ;                                    (shell-command-to-string "echo -n \" $(date '+%a %d %b %I:%M%p')\""))
-                                        ;(add-to-list 'spacemacs-mode-line-right 'date-time-segment)
-                                        ;)
   ;; Import custom configs
   (if (file-readable-p "~/.spacemacs.d/dot_fonts.el") (load "~/.spacemacs.d/dot_fonts.el"))
   (if (file-readable-p "~/.spacemacs.d/dot_org.el") (load "~/.spacemacs.d/dot_org.el"))
@@ -581,14 +571,6 @@ dump."
   (global-set-key "\M-j" 'hippie-expand)
   ;; set margin for scrolling
   (setq scroll-margin 5)
-  ;;Cpp stuff
-                                        ;  (setq-default dotspacemacs-configuration-layers
-                                        ;                '((c-c++ :variables
-                                        ;                         c-c++-default-mode-for-headers 'c++-mode)))
-                                        ;  (setq-default dotspacemacs-configuration-layers
-                                        ;                '((c-c++ :variables c-c++-enable-clang-support t)))
-  ;; ORG MODE STUFF
-  ;;
   ;; use pretty things for the clocktable
   (setq org-pretty-entities t)
   (setq org-columns-default-format "%50ITEM(Task) %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM")
