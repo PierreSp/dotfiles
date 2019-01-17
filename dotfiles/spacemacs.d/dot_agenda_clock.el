@@ -28,6 +28,7 @@
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)))
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1 )))
+(add-hook 'kill-emacs-hook #'org-clock-out)
 
 
 ;; activate clock
@@ -35,8 +36,15 @@
 ;; Save the running clock and all clock history when exiting Emacs,
 ;; Clock out when exiting emacs
 ;; (setq org-clock-persist t)
-(add-hook 'kill-emacs-hook #'org-clock-out)
-
+(setq org-archive-tag "inactive")
+;; For tag searches ignore tasks with scheduled and deadline dates
+(setq org-agenda-tags-todo-honor-ignore-options t)
+;; Start week on monday
+(setq org-agenda-start-on-weekday 1)
+;; start agenda in day mode
+(setq org-agenda-span 1)
+;; start with someday and filters - thanks to nathbo
+(setq org-agenda-filter-preset '("-someday"))
 ;; Use f5 and f8 for clocks
 (fset 'my-clock-in "\C-c\C-x\C-i")
 (global-set-key (kbd "<f5>") 'my-clock-in)
@@ -55,15 +63,6 @@
 (setq org-gcal-file-alist '(("pspri99@gmail.com" . "~/calendar.org")
                             ("h8raedgh2c8hoa7fk49v8aogmc0ldbda@import.calendar.google.com" . "~/Projekte/org/uni_cal.org")
                             ))
-(setq org-archive-tag "inactive")
-                                        ; For tag searches ignore tasks with scheduled and deadline dates
-(setq org-agenda-tags-todo-honor-ignore-options t)
-;; Start week on monday
-(setq org-agenda-start-on-weekday 1)
-;; start agenda in day mode
-(setq org-agenda-span 1)
-;; start with someday and filters - thanks to nathbo
-(setq org-agenda-filter-preset '("-someday"))
 (setq org-agenda-custom-commands
       ;; (append org-agenda-custom-commands
       '(("g" . "GTD-Workflow")
@@ -108,11 +107,14 @@
          ((tags "@UNI"
                 ((org-agenda-todo-ignore-with-date nil)))
           ))
+        ("m" "master" tags "masterthesis"
+         ((org-agenda-todo-ignore-with-date nil))
+         )
 
         ("d" "Upcoming deadlines" agenda ""
          ((org-agenda-entry-types '(:deadline))
           (org-agenda-span 1)
-          (org-deadline-warning-days 60)
+          (org-deadline-warning-days 120)
           (org-agenda-overriding-header "Upcoming Deadlines")
           (org-agenda-time-grid nil)))
 

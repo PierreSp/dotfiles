@@ -23,17 +23,11 @@
 (setq org-capture-templates
       '(("t" "Aufgabe in tasks.org" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
          "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-        ("w" "Waiting For Reply (Mail)" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
-         "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
         ("m" "Aufgabe aus Mail" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
          "* TODO %? , Link: %a")
         ("p" "Phone call" entry (file "~/Projekte/org/tasks.org" "Inbox")
          "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-        ("g" "Google cal" entry
-         (file "~/calendar.org")
-         "* %? - %a
- %^T" :empty-lines 1 :empty-lines-after 1 :time-prompt t)
-        ("c" "Add normal entry to google calendar" entry
+        ("g" "Add normal entry to google calendar" entry
          (file "~/calendar.org")
          "* %?
  %^T" :empty-lines 1 :empty-lines-after 1 :time-prompt t)

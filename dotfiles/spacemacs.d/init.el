@@ -50,11 +50,9 @@ This function should only modify configuration layer settings."
      bibtex
      (c-c++ :variables
            c-c++-default-mode-for-headers 'c++-mode)
-
      (org :variables org-want-todo-bindings t)
      emacs-lisp
      evil-commentary
-                                        ;display
      git
      google-calendar
      helm
@@ -532,15 +530,7 @@ See the header of this file for more information."
   ;;    (C . t)
   ;;    (calc . t)
   ;;    ))
-  ;; easier comments - thanks to nath
-  (global-set-key (kbd "C-S-c") 'evil-commentary-line)
 
-  ;; ;; Org style settings
-                                        ;(setq org-src-fontify-natively nil)
-                                        ;(setq org-src-tab-acts-natively t)
-                                        ;(setq org-src-preserve-indentation t)
-  ;; Set Neotree to F1
-  (define-key global-map (kbd "<f1>") 'neotree)
 ;;; No more warnings in the init, but might actually lead to
                                         ;(setq explicit-shell-file-name "/bin/fish")
                                         ;(setq shell-file-name "fish")
@@ -556,12 +546,14 @@ dump."
   )
 
 (defun dotspacemacs/user-config ()
-                                        ;  "Configuration for user code:
   ;; This function is called at the very end of Spacemacs startup, after layer
   ;; configuration.
   ;; Put your configuration code here, except for variables that should be set
   ;; before packages are loaded."
-                                        ; Set Icon theme for neotree
+  ;; Keybindings
+  (global-set-key (kbd "C-S-c") 'evil-commentary-line)
+  (define-key global-map (kbd "<f1>") 'neotree)
+  ;; Set Icon theme for neotree
   (setq neo-theme 'icons)
   ;; Import custom configs
   (if (file-readable-p "~/.spacemacs.d/dot_fonts.el") (load "~/.spacemacs.d/dot_fonts.el"))
