@@ -4,65 +4,66 @@
 
 ;; allow inline images
 (setq org-display-inline-images t)
-;;  (setq org-redisplay-inline-images t)
 (setq org-startup-with-inline-images t)
-;; Save everything at autosave
+;; Save every open buffer at autosave
 (add-hook 'auto-save-hook 'org-save-all-org-buffers)
-   (server-start)
-  (require 'org-protocol)
-  (with-eval-after-load 'org
-    (add-to-list 'org-modules 'org-protocol))
+(server-start)
+(require 'org-protocol)
+(with-eval-after-load 'org
+  (add-to-list 'org-modules 'org-protocol))
 
-  (setq org-agenda-files'(
-      "~/calendar.org"
-      "~/Projekte/org/uni_cal.org"
-      "~/Projekte/org/tasks.org"
-      "~/org/"
-      ))
-  (setq org-capture-templates
-        '(("t" "Aufgabe in tasks.org" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
-           "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-          ("w" "Waiting For Reply (Mail)" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
-           "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-          ("m" "Aufgabe aus Mail" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
-           "* TODO %? , Link: %a")
-          ("p" "Phone call" entry (file "~/Projekte/org/tasks.org" "Inbox")
-           "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-      ("g" "Google cal" entry
-       (file "~/calendar.org")
-       "* %? - %a
+;; Regular agenda files(org folder is fully scanned)
+(setq org-agenda-files'(
+                        "~/calendar.org"
+                        "~/Projekte/org/uni_cal.org"
+                        "~/Projekte/org/tasks.org"
+                        "~/org/"
+                        ))
+;; Capture. Master thesis tasks are under m
+(setq org-capture-templates
+      '(("t" "Aufgabe in tasks.org" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
+         "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+        ("w" "Waiting For Reply (Mail)" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
+         "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+        ("m" "Aufgabe aus Mail" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
+         "* TODO %? , Link: %a")
+        ("p" "Phone call" entry (file "~/Projekte/org/tasks.org" "Inbox")
+         "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+        ("g" "Google cal" entry
+         (file "~/calendar.org")
+         "* %? - %a
  %^T" :empty-lines 1 :empty-lines-after 1 :time-prompt t)
-      ("c" "Add normal entry to google calendar" entry
-       (file "~/calendar.org")
-       "* %?
+        ("c" "Add normal entry to google calendar" entry
+         (file "~/calendar.org")
+         "* %?
  %^T" :empty-lines 1 :empty-lines-after 1 :time-prompt t)
 
-      ("m" "Masterarbeit")
-      ("mq" "Masterarbeit: Question" entry (file+headline "~/org/mt_general.org" "Open Questions")
-       "- %?")
-      ("mt" "Masterarbeit: ToDo" entry (file+headline "~/org/mt_general.org" "Todo")
-       "* TODO %?")
-      ("mg" "Masterarbeit: General" entry (file+olp "~/org/mt_general.org" "General")
-       "* %?")
-      ))
-                                        ; Tags with fast selection keys
-        (setq org-tag-alist (quote ((:startgroup)
-                                    ("@uni" . ?u)
-                                    ("@hainsfarth" . ?h)
-                                    ("@garching" . ?g)
-                                    ("@muenchen" . ?m)
-                                    (:endgroup)
-                                    ("WAITING" . ?w)
-                                    ("PERSONAL" . ?P)
-                                    ("WORK" . ?W)
-                                    ("ORG" . ?O)
-                                    ("NOTE" . ?n)
-                                    ("habit" .?h)
-                                    ("CANCELLED" . ?c)
-                                    ("FLAGGED" . ??))))
+        ("m" "Masterarbeit")
+        ("mq" "Masterarbeit: Question" entry (file+headline "~/org/mt_general.org" "Open Questions")
+         "- %?")
+        ("mt" "Masterarbeit: ToDo" entry (file+headline "~/org/mt_general.org" "Todo")
+         "* TODO %?")
+        ("mg" "Masterarbeit: General" entry (file+olp "~/org/mt_general.org" "General")
+         "* %?")
+        ))
+;; Tags with fast selection keys
+(setq org-tag-alist (quote ((:startgroup)
+                            ("@uni" . ?u)
+                            ("@hainsfarth" . ?h)
+                            ("@garching" . ?g)
+                            ("@muenchen" . ?m)
+                            (:endgroup)
+                            ("WAITING" . ?w)
+                            ("PERSONAL" . ?P)
+                            ("WORK" . ?W)
+                            ("ORG" . ?O)
+                            ("NOTE" . ?n)
+                            ("habit" .?h)
+                            ("CANCELLED" . ?c)
+                            ("FLAGGED" . ??))))
 
-                                        ; Allow setting single tags without the menu
-        (setq org-fast-tag-selection-single-key (quote expert))
+;; Allow setting single tags without the menu
+(setq org-fast-tag-selection-single-key (quote expert))
 
 ;; Custom todo keys
 (setq org-todo-keywords
@@ -116,10 +117,10 @@
 
 ;; Download directory
 (setq biblio-download-directory "~/UNI/papers/bibtex-pdfs")
+;; Org mode keybindings
 ;; Hotkeys - thanks to nathbo
 (evil-leader/set-key-for-mode 'org-mode "I" 'interleave-mode)
 (evil-leader/set-key-for-mode 'org-mode "B" 'helm-bibtex)
 (evil-leader/set-key-for-mode 'bibtex-mode "B" 'helm-bibtex)
-;; Org mode keybinding
 (with-eval-after-load 'org
   (evil-define-key '(normal insert) org-mode-map (kbd "M-RET M-RET") 'org-meta-return))
