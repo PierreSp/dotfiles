@@ -571,9 +571,6 @@ dump."
   (global-set-key "\M-j" 'hippie-expand)
   ;; set margin for scrolling
   (setq scroll-margin 5)
-  ;; use pretty things for the clocktable
-  (setq org-pretty-entities t)
-  (setq org-columns-default-format "%50ITEM(Task) %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM")
   ;; Set hook to sync gcal after each entry and enably desktop notifications
   (add-hook 'org-capture-after-finalize-hook 'google-calendar/sync-cal-after-capture)
   (setq alert-default-style 'libnotify)

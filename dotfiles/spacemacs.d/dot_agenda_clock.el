@@ -23,6 +23,16 @@
 (setq mode-line-org-clock t)
 ;; Log when done
 (setq org-log-done 'time)
+;; Include current clocking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+;; use pretty things for the clocktable
+(setq org-pretty-entities t)
+;; Resume clocking task when emacs is restarted
+(org-clock-persistence-insinuate)
+;; Set default column view headings: Task Priority Effort Clock_Summary
+(setq org-columns-default-format "%50ITEM(Task) %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM")
+
+
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1 )))
 
 
