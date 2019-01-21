@@ -91,7 +91,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(org-plus-contrib
                                       org-ref
-                                      org-habits
+                                      org-habit
                                       org-download
                                       conda
                                       flycheck
@@ -486,30 +486,7 @@ See the header of this file for more information."
   ;; configuration.
   ;; It is mostly for variables that should be set before packages are loaded.
   ;; If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; Activate cua mode (allows ctrl+c,v,...)
-  (cua-mode 1)
-  ;; Set long and latiude for sunset
-  (setq calendar-latitude 48.248872)
-  (setq calendar-longitude 11.653248)
   ;; Enable persistent undo tree with fixes
-  ;; Thanks to https://github.com/syl20bnr/spacemacs/issues/774
-  ;; Usage: https://emacs.stackexchange.com/questions/27339/how-to-operate-the-undo-redo-tree-in-spacemacs
-  (setq
-   desktop-dirname             "~/.emacs.d/session/"
-   desktop-path                (list desktop-dirname)
-   desktop-auto-save-timeout 5
-   desktop-restore-eager 5) ;; lazily restore desktop buffers
-  (desktop-save-mode 1)
-
-  ;; add before `desktop-read' hook
-  (defvar desktop-before-read-hook '() "Hooks run before `desktop-read'.")
-  (defadvice desktop-read (before my:desktop-read-run-before-hooks activate)
-    (run-hooks 'desktop-before-read-hook))
-  (setq undo-tree-auto-save-history t)
-  (defun my:enable-global-undo-tree()
-    (global-undo-tree-mode 1)
-    (diminish 'undo-tree-mode))
-  (add-hook 'desktop-before-read-hook 'my:enable-global-undo-tree)
   ;; (use-package pytest
   ;;   :init
   ;;   (progn
@@ -534,8 +511,6 @@ See the header of this file for more information."
 ;;; No more warnings in the init, but might actually lead to
                                         ;(setq explicit-shell-file-name "/bin/fish")
                                         ;(setq shell-file-name "fish")
-  ;; Nicer undo
-                                        ;(setq evil-want-fine-undo t)
   )
 
 (defun dotspacemacs/user-load ()
@@ -550,32 +525,15 @@ dump."
   ;; configuration.
   ;; Put your configuration code here, except for variables that should be set
   ;; before packages are loaded."
-  ;; Keybindings
-  (global-set-key (kbd "C-S-c") 'evil-commentary-line)
-  (define-key global-map (kbd "<f1>") 'neotree)
-  ;; Set Icon theme for neotree
-  (setq neo-theme 'icons)
   ;; Import custom configs
-  (if (file-readable-p "~/.spacemacs.d/dot_fonts.el") (load "~/.spacemacs.d/dot_fonts.el"))
-  (if (file-readable-p "~/.spacemacs.d/dot_org.el") (load "~/.spacemacs.d/dot_org.el"))
-  (if (file-readable-p "~/.spacemacs.d/dot_agenda_clock.el") (load "~/.spacemacs.d/dot_agenda_clock.el"))
-  ;; set hotkey for yay snippet completion
-  (global-set-key "\M-j" 'hippie-expand)
-  ;; set margin for scrolling
-  (setq scroll-margin 5)
-  ;; Set hook to sync gcal after each entry and enably desktop notifications
-  (add-hook 'org-capture-after-finalize-hook 'google-calendar/sync-cal-after-capture)
-  (setq alert-default-style 'libnotify)
-  ;; Truncate lines if they become to long
-  (spacemacs/toggle-truncate-lines-on)
-  ;; Visual line navigation for textual modes
-  (add-hook 'text-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
+  (org-babel-load-file "~/.spacemacs.d/config.org")
+  ;;(if (file-readable-p "~/.spacemacs.d/dot_fonts.el") (load "~/.spacemacs.d/dot_fonts.el"))
+  ;;(if (file-readable-p "~/.spacemacs.d/dot_org.el") (load "~/.spacemacs.d/dot_org.el"))
+  ;;(if (file-readable-p "~/.spacemacs.d/dot_agenda_clock.el") (load "~/.spacemacs.d/dot_agenda_clock.el"))
   ;; I would like to use projectile, but new errors
   ;; (with-eval-after-load 'org-agenda
   ;;   (require 'org-projectile)
   ;;   (push (org-projectile:todo-files) org-agenda-files))
-  ;; open pdfs scaled to fit page
-  (setq-default pdf-view-display-size 'fit-page)
   )
 
 
