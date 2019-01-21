@@ -50,7 +50,6 @@
     (add-hook 'kill-emacs-hook #'org-clock-out)
    #+END_SRC
 
-
 * Org
 ** General settings
 *** Autosave all org buffers
@@ -123,6 +122,10 @@
       (setq org-agenda-skip-scheduled-if-done t)
       (setq org-agenda-skip-deadline-if-done t)
       (setq org-agenda-filter-preset '("-someday"))
+      ; Only show one recurring task
+      (setq org-agenda-show-future-repeats 'next)
+      ; Hide dependent tasks (thanks to nathbo!)
+      (setq org-agenda-dim-blocked-tasks 'invisible)
     #+END_SRC
 *** Set formating
     #+BEGIN_SRC emacs-lisp
@@ -232,6 +235,11 @@
                     ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
                     ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
                     ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+    #+END_SRC
+*** Active order for todos
+    Thanks to nathbo!
+    #+BEGIN_SRC emacs-lisp
+      (setq org-enforce-todo-dependencies t)
     #+END_SRC
 ** Bibtex
    #+BEGIN_SRC emacs-lisp
