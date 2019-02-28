@@ -107,7 +107,7 @@
     #+END_SRC
 *** Make tag and todo search follow ignore commands
     #+BEGIN_SRC emacs-lisp
-      (setq org-agenda-tags-todo-honor-ignore-options t)
+      ;(setq org-agenda-tags-todo-honor-ignore-options t)
     #+END_SRC
 *** Start week on monday
     #+BEGIN_SRC emacs-lisp
@@ -201,6 +201,7 @@
               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
              ("m" "Aufgabe aus Mail" entry (file+headline "~/Projekte/org/tasks.org" "Inbox")
               "* TODO %? , Link: %a")
+
              ("p" "Phone call" entry (file "~/Projekte/org/tasks.org" "Inbox")
               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
              ("g" "Add normal entry to google calendar" entry
@@ -239,8 +240,8 @@
 *** Active order for todos
     Thanks to nathbo!
     #+BEGIN_SRC emacs-lisp
-      (setq org-enforce-todo-dependencies t)
-    #+END_SRC
+      (setq org-enforce-:todo-dependencies t)
+    #+END_SRC:
 ** Bibtex
    #+BEGIN_SRC emacs-lisp
 
@@ -519,7 +520,7 @@
 ** Load org habit
    For some reason org-habit only works, when loaded here...
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'org-modules 'org-habit)
+     ;(add-to-list 'org-modules 'org-habit)
    #+END_SRC
 ** Use fine undo
    Emacs normally undos the whole block when using insert mode. Make it more granular

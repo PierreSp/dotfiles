@@ -36,4 +36,4 @@ colors() {
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
 
 ## FISH DEFAULT SHELL
-[[ -d ~/.config/fish ]] && exec fish
+#[[ -d ~/.config/fish ]] && exec fish
