@@ -91,7 +91,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(org-plus-contrib
                                       org-ref
-                                      org-habit
+                                      org-habits
                                       org-download
                                       org-chef
                                       conda
