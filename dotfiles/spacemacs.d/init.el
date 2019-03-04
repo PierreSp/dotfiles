@@ -91,13 +91,13 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(org-plus-contrib
                                       org-ref
-                                      ;org-habit
+                                      org-habit
                                       org-download
+                                      org-chef
                                       conda
                                       flycheck
                                         ;pretty-mode
                                         ;pretty-symbols
-                                      org-chef
                                       flycheck-cython
                                       python-pytest
                                       yasnippet-snippets
@@ -488,6 +488,8 @@ See the header of this file for more information."
   ;; It is mostly for variables that should be set before packages are loaded.
   ;; If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; Enable persistent undo tree with fixes
+  (use-package org-chef
+    :ensure t)
   ;; (use-package pytest
   ;;   :init
   ;;   (progn
