@@ -492,9 +492,19 @@
    #+END_SRC
 ** Set coordinates of hometown for agenda-sunset
    #+BEGIN_SRC emacs-lisp
+     (setq calendar-location-name "Munich, Germany")
      (setq calendar-latitude 48.248872)
      (setq calendar-longitude 11.653248)
    #+END_SRC
+** Geolocation and timed theme
+   #+BEGIN_SRC emacs-lisp
+     (setq sunshine-appid "223e43c1be9cadf9c8edbc7ca335c685")
+     (setq sunshine-location "85748,GER")
+     (setq sunshine-units 'metric)
+     (setq sunshine-show-icons t)
+
+   #+END_SRC
+
 ** Undo Tree-Fix
    To use undo tree with spacemacs it is recommended to hook that with desktop saving.
    Thanks to [[https://github.com/syl20bnr/spacemacs/issues/774][Spacemacs Github]]
