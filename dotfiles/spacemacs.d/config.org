@@ -497,9 +497,10 @@
      (setq calendar-longitude 11.653248)
    #+END_SRC
 ** Geolocation and timed theme
+   press space, a, w to show weather forecast
    #+BEGIN_SRC emacs-lisp
-     (setq sunshine-appid "223e43c1be9cadf9c8edbc7ca335c685")
-     (setq sunshine-location "85748,GER")
+     (setq sunshine-appid "4fba292d761a7cb80a8aec91fd6d522b")
+     (setq sunshine-location "85748,DE")
      (setq sunshine-units 'metric)
      (setq sunshine-show-icons t)
 
