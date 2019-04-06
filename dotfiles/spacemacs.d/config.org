@@ -440,6 +440,11 @@
       (fset 'my-clock-out "\C-c\C-x\C-o")
       (global-set-key (kbd "<f8>") 'my-clock-out)
     #+END_SRC
+*** Set CTRL s for saving all buffers
+    #+BEGIN_SRC emacs-lisp
+      (defun save-all () (interactive) (save-some-buffers t))
+      (global-set-key (kbd "C-s") 'save-all)
+    #+END_SRC
 ** Use Libnotify for alerts
    #+BEGIN_SRC emacs-lisp
      (setq alert-default-style 'libnotify)
