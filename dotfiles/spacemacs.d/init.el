@@ -68,6 +68,7 @@ This function should only modify configuration layer settings."
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      markdown
      neotree
+     nlinum
      pandoc
      pdf
      ;;pdf
