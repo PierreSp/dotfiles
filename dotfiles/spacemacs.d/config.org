@@ -544,3 +544,11 @@
    #+BEGIN_SRC emacs-lisp
      (setq evil-want-fine-undo t)
    #+END_SRC
+** Add sphinx doc key for python mode
+   Adds sphinx docstring with space i d
+   #+BEGIN_SRC emacs-lisp
+     (spacemacs|use-package-add-hook python
+       :post-config
+       (spacemacs/set-leader-keys-for-major-mode 'python-mode
+         "id" 'sphinx-doc))
+   #+END_SRC

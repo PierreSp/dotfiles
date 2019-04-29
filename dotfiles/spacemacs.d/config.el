@@ -374,3 +374,8 @@
 (add-to-list 'org-modules 'org-habit)
 
 (setq evil-want-fine-undo t)
+
+(spacemacs|use-package-add-hook python
+  :post-config
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode
+    "id" 'sphinx-doc))
