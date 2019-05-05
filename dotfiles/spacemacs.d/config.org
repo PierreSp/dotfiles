@@ -69,6 +69,13 @@
       (with-eval-after-load 'org
         (add-to-list 'org-modules 'org-protocol))
     #+END_SRC
+*** Use clock report with agenda and archives
+    Clock report in agenda normally only looks at agenda files. I would like to use archives, too.
+    #+BEGIN_SRC emacs-lisp
+      (setq org-clock-clocktable-default-properties '(:scope agenda-with-archives))
+      (setq org-clocktable-defaults '(:scope agenda-with-archives))
+    #+END_SRC
+
 ** Tags
 *** Predefine some often used tags
     #+BEGIN_SRC emacs-lisp
@@ -547,6 +554,7 @@
 ** Add sphinx doc key for python mode
    Adds sphinx docstring with space i d
    #+BEGIN_SRC emacs-lisp
+     (spacemacs/set-leader-keys-for-major-mode 'python-mode "id" 'sphinx-doc)
      (spacemacs|use-package-add-hook python
        :post-config
        (spacemacs/set-leader-keys-for-major-mode 'python-mode

@@ -27,6 +27,10 @@ dotfiles:
     dst: ~/scripts
     link: true
     src: scripts
+  d_spacemacs.d:
+    dst: ~/.spacemacs.d
+    link: true
+    src: spacemacs.d
   d_user:
     dst: ~/.config/sublime-text-3/Packages/User
     link: true
@@ -51,6 +55,18 @@ dotfiles:
     dst: ~/.config/fish/config.fish
     link: true
     src: config/fish/config.fish
+  f_dot_agenda_clock.el:
+    dst: ~/.spacemacs.d/dot_agenda_clock.el
+    link: true
+    src: spacemacs.d/dot_agenda_clock.el
+  f_dot_fonts.el:
+    dst: ~/.spacemacs.d/dot_fonts.el
+    link: true
+    src: spacemacs.d/dot_fonts.el
+  f_dot_org.el:
+    dst: ~/.spacemacs.d/dot_org.el
+    link: true
+    src: spacemacs.d/dot_org.el
   f_fish_greeting:
     dst: ~/.config/fish/functions/fish_greeting
     link: true
@@ -63,6 +79,10 @@ dotfiles:
     dst: ~/.i3status.conf
     link: true
     src: i3status.conf
+  f_init.el:
+    dst: ~/.spacemacs.d/init.el
+    link: true
+    src: spacemacs.d/init.el
   f_kitty.conf:
     dst: ~/.config/kitty/kitty.conf
     link: true
@@ -110,3 +130,8 @@ profiles:
     - f_xresources
     - f_redshift.conf
     - f_spacemacs
+    - d_spacemacs.d
+    - f_dot_agenda_clock.el
+    - f_dot_fonts.el
+    - f_dot_org.el
+    - f_init.el
