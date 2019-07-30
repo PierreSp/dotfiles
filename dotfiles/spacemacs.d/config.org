@@ -79,20 +79,21 @@
 ** Tags
 *** Predefine some often used tags
     #+BEGIN_SRC emacs-lisp
-      (setq org-tag-alist (quote ((:startgroup)
-                                  ("@uni" . ?u)
-                                  ("@hainsfarth" . ?h)
-                                  ("@garching" . ?g)
-                                  ("@muenchen" . ?m)
-                                  (:endgroup)
-                                  ("WAITING" . ?w)
-                                  ("PERSONAL" . ?P)
-                                  ("WORK" . ?W)
-                                  ("ORG" . ?O)
-                                  ("NOTE" . ?n)
-                                  ("habit" .?h)
-                                  ("CANCELLED" . ?c)
-                                  ("FLAGGED" . ??))))
+            (setq org-tag-alist (quote ((:startgroup)
+                                        ("@uni" . ?u)
+                                        ("@hainsfarth" . ?h)
+                                        ("@garching" . ?g)
+                                        ("@muenchen" . ?m)
+                                        (:endgroup)
+                                        ("WAITING" . ?w)
+                                        ("PERSONAL" . ?P)
+                                        ("WORK" . ?W)
+                                        ("ORG" . ?O)
+                                        ("NOTE" . ?n)
+                                        ("habit" .?h)
+                                        ("CANCELLED" . ?c)
+                                        ("FLAGGED" . ??))))
+      (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
     #+END_SRC
 *** Allow tags to be set with hotkey
     #+BEGIN_SRC emacs-lisp

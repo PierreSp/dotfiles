@@ -59,14 +59,14 @@ alias printer="system-config-printer"
 alias update="yaourt -Syua"
 alias xopen="xdg-open"
 alias nfetch="neofetch --w3m"
-
+alias dev_upgrade="yay -Syu --devel"
 # Bashrcs
 alias bashrc="$EDITOR $HOME/.bashrc"
 alias fishrc="$EDITOR $HOME/.config/fish/config.fish"
 
-# TOols
+# Tools
 alias pow="sudo tlp stat" # required tlp (optimize power seetings)
-alias cal="vdirsyncer sync & vdirsyncer metasync" # my calendar
+# alias cal="vdirsyncer sync & vdirsyncer metasync" # my calendar
 
 # SSHFS connections 
 alias jfolder="sshfs jupyterserver:/home/pspri ~/sshfs/jupyter"
