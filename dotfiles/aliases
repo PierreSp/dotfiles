@@ -56,10 +56,10 @@ alias inst="sudo pacman -S"
 alias uninst="sudo pacman -Rsu"
 alias mirrors="sudo pacman-mirrors -g"
 alias printer="system-config-printer"
-alias update="yaourt -Syua"
 alias xopen="xdg-open"
 alias nfetch="neofetch --w3m"
-alias dev_upgrade="yay -Syu --devel"
+alias update="yay -Syu --devel"
+
 # Bashrcs
 alias bashrc="$EDITOR $HOME/.bashrc"
 alias fishrc="$EDITOR $HOME/.config/fish/config.fish"
