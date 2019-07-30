@@ -17,7 +17,7 @@ inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome x
 ```
 - Install programs from AUR
 ```bash
-yay -S powerline py3status dropbox sublime-text-dev redshift-gtk signal-desktop vidir
+yay -S powerline py3status dropbox sublime-text-dev redshift-gtk signal-desktop vidir kitty fd
 
 ```
 
@@ -39,6 +39,7 @@ sh dotfiles/scripts/install_py_packages.sh
 - bat - *better cat*
 - Dropbox
 - fish - *Shell extension (used with oh-my-fish with agnoster theme and virtualfish for python envs)*
+- fd - *faster find alternative*
 - kitty - *gui based, ssh friendly terminal emulator*
 - mons - *Good wrapper for randr*
 - neovim - *Better vim*
