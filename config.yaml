@@ -7,6 +7,9 @@ config:
   link_by_default: false
   longkey: false
 dotfiles:
+  d_awesome:
+    dst: ~/.config/awesome
+    src: config/awesome
   d_i3:
     dst: ~/.i3
     link: true
@@ -108,8 +111,34 @@ dotfiles:
     link: true
     src: Xresources
 profiles:
+  pierre:
+    dotfiles:
+    - f_aliases
+    - f_bashrc
+    - f_profile
+    - d_scripts
+    - d_nvim
+    - f_kitty.conf
+    - d_user
+    - f_gitconfig
+    - f_i3status.conf
+    - f_config
+    - d_jupyter
+    - f_config.fish
+    - f_fish_greeting
+    - f_omf.fish
+    - f__settings.json
+    - f_xresources
+    - f_redshift.conf
+    - f_spacemacs
+    - d_spacemacs.d
+    - f_dot_agenda_clock.el
+    - f_dot_fonts.el
+    - f_dot_org.el
+    - f_init.el
   pspri:
     dotfiles:
+    - d_wesome
     - f_aliases
     - d_i3
     - f_bashrc
