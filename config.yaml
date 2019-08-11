@@ -4,11 +4,12 @@ config:
   create: true
   dotpath: dotfiles
   keepdot: false
-  link_by_default: false
+  link_by_default: true
   longkey: false
 dotfiles:
   d_awesome:
     dst: ~/.config/awesome
+    link: true
     src: config/awesome
   d_i3:
     dst: ~/.i3
