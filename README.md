@@ -25,7 +25,7 @@ yay -S otf-font-awesome powerline powerline-fonts ttf-font-awesome xcape otf-fir
 	- kitty as terminal emulator
 	- python-pipx to make python packages available everywhere
 ```bash
-yay -S kitty python-pipx julia emacs neovim dropbox sublime-text-dev
+yay -S kitty python-pipx julia emacs neovim dropbox sublime-text-dev aspell-de aspell-en i3lock-fancy-rapid-git
 
 ```
 
@@ -80,3 +80,5 @@ pipx install black
 	Run :PlugInstall
 	and :PlugUpdate in nvim
 Alternative font idea: https://github.com/be5invis/Iosevka
+
+- Run systemctl enable --user emacs.service to run emacs deamon with systemd
