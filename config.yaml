@@ -1,0 +1,73 @@
+config:
+  backup: true
+  create: true
+  dotpath: dotfiles
+dotfiles:
+  d_kitty:
+    src: config/kitty
+    dst: ~/.config/kitty
+    link: link_children
+  f_redshift.conf:
+    src: config/redshift.conf
+    dst: ~/.config/redshift.conf
+    link: link
+  d_nvim:
+    src: config/nvim
+    dst: ~/.config/nvim
+    link: link_children
+  d_awesome:
+    src: config/awesome
+    dst: ~/.config/awesome
+    link: link_children
+  d_spacemacs.d:
+    src: spacemacs.d
+    dst: ~/spacemacs.d
+    link: link_children
+  d_jupyter:
+    src: jupyter
+    dst: ~/jupyter
+    link: link_children
+  d_scripts:
+    src: scripts
+    dst: ~/scripts
+    link: link_children
+  f_aliases:
+    src: aliases
+    dst: ~/aliases
+    link: link
+  f_bashrc:
+    src: bashrc
+    dst: ~/bashrc
+    link: link
+  f_gitconfig:
+    src: gitconfig
+    dst: ~/gitconfig
+    link: link
+  f_xresources:
+    src: Xresources
+    dst: ~/Xresources
+    link: link
+  f_profile:
+    src: profile
+    dst: ~/profile
+    link: link
+  f_spacemacs_1:
+    src: spacemacs
+    dst: ~/.spacemacs
+    link: link
+profiles:
+  Tower-1TB:
+    dotfiles:
+    - d_kitty
+    - f_redshift.conf
+    - d_nvim
+    - d_awesome
+    - d_spacemacs.d
+    - d_jupyter
+    - d_scripts
+    - f_aliases
+    - f_bashrc
+    - f_gitconfig
+    - f_xresources
+    - f_profile
+    - f_spacemacs_1

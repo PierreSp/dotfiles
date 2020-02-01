@@ -5,55 +5,68 @@
 
 - Install dotdrop and load all configs (Make sure the host is correct)
 ```bash
+export DOTREPO="~/dotfiles"
+alias dotdrop="$DOTREPO/dotdrop.sh"
+
 git clone --recursive https://github.com/PierreSp/dotfiles ~/dotfiles
 cd ~/dotfiles
 pip install --user -r dotfiles/requirements.txt
 ./dotdrop.sh install
 ```
 
-- Install yay and pacman programs
+- Install fonts and gui stuff AUR
+	- xcape for reconfiguration of keys
 ```bash
-inst yay otf-font-awesome fish powerline powerline-fonts tmux ttf-font-awesome xcape otf-fira-code vlc bat ripgrep asciinema mons asciiquarium rofi adobe-source-code-pro-fonts
+yay -S otf-font-awesome powerline powerline-fonts ttf-font-awesome xcape otf-fira-code adobe-source-code-pro-fonts nordic-theme-git 
+
 ```
-- Install programs from AUR
+
+- Install essential programs from AUR
+	- kitty as terminal emulator
+	- python-pipx to make python packages available everywhere
 ```bash
-yay -S powerline py3status dropbox sublime-text-dev redshift-gtk signal-desktop vidir kitty fd glances
+yay -S kitty python-pipx julia emacs neovim dropbox sublime-text-dev
+
+```
+
+- Install terminal tools from AUR
+	- bat as cat replacement
+	- mons for simple multi-monitor settings
+	- ripgrep as faster grep
+	- fd as faster find
+	- glances as better htop
+	- cloc for code statistics
+
+```bash
+yay -S bat ripgrep mons fd sshfs py3status glances cloc
+
+```
+
+- Install optional programs from AUR
+	- redshift to filter blue light in the evening
+```bash
+yay -S asciinema asciiquarium redshift-gtk-git signal-desktop vlc pandoc
 
 ```
 
 - Install oh my fish and set theme
 ```bash
 curl -L https://get.oh-my.fish | fish
-omf install agnoster
+omf install bobthefish
 ```
 
-- Install python tools (will ask for different setups (data science, autocomplete, stats)
+
+
+- Install python tools
 ```bash
 sh dotfiles/scripts/install_py_packages.sh
 ```
-- Run :PlugInstall withhin neovim
-## Used tools and programs
-
-- asciinema - *Best video studio ever*
-- asciiquarium - *Relaxing screensaver*
-- bat - *better cat*
-- Dropbox
-- glances - *better htop*
-- fish - *Shell extension (used with oh-my-fish with agnoster theme and virtualfish for python envs)*
-- fd - *faster find alternative*
-- kitty - *gui based, ssh friendly terminal emulator*
-- mons - *Good wrapper for randr*
-- neovim - *Better vim*
-- powerline - *show more information in terminal*
-- redshift - *protects your eyes*
-- rofi - dmenu alternative
-- ripgrep - *better grep*
-- sublime - *good coding environment*
-- signal  -  Desktop application for signal
-- tmux - *Terminal multiplexer*
-- vidir - *Vi-based multi file renaming tool (AUR)*
-- vlc - *good video player*
-- xcape - *redefine keys*
-- yay - *better yaourt (package manager for AUR)*
-
+- Neovim:
+	Get Plugvim with:
+	```bash
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	```
+	Run :PlugInstall
+	and :PlugUpdate in nvim
 Alternative font idea: https://github.com/be5invis/Iosevka
