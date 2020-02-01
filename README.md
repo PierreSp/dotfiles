@@ -59,7 +59,17 @@ omf install bobthefish
 
 - Install python tools
 ```bash
-sh dotfiles/scripts/install_py_packages.sh
+pip install --user jupyter
+pip install --user json-rpc service_factory
+pip install --user pandas numpy
+pip install --user python-language-server[all] pyls-isort pyls-mypy pyls-black jedi
+pip install --user importmagic epc autoflake ptvsd
+
+pipx install jupyterlab
+pipx install black
+
+# Old version
+# sh dotfiles/scripts/install_py_packages.sh
 ```
 - Neovim:
 	Get Plugvim with:
