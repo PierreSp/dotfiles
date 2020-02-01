@@ -1,6 +1,0 @@
-function fish_greeting
-        vdirsyncer sync 
-	khal
-end
-
-funcsave fish_greeting
